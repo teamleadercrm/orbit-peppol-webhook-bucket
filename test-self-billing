@@ -15,7 +15,7 @@
              xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">
       <cbc:CustomizationID>urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:selfbilling:3.0</cbc:CustomizationID>
       <cbc:ProfileID>urn:fdc:peppol.eu:2017:poacc:selfbilling:01:1.0</cbc:ProfileID>
-      <cbc:ID>SB-INV-2026-0002</cbc:ID>
+      <cbc:ID>SB-INV-2026-0003</cbc:ID>
       <cbc:IssueDate>2026-07-15</cbc:IssueDate>
       <cbc:DueDate>2026-08-14</cbc:DueDate>
       <cbc:InvoiceTypeCode>380</cbc:InvoiceTypeCode>
@@ -46,7 +46,7 @@
       </cac:AccountingSupplierParty>
 <cac:AccountingCustomerParty>
         <cac:Party>
-          <cbc:EndpointID schemeID="9925">BE0899623035</cbc:EndpointID>
+          <cbc:EndpointID schemeID="9925">BE0475123420</cbc:EndpointID>
           <cac:PartyName><cbc:Name>Dummy Customer BV</cbc:Name></cac:PartyName>
           <cac:PostalAddress>
             <cbc:StreetName>Customer Street 2</cbc:StreetName>
@@ -55,12 +55,12 @@
             <cac:Country><cbc:IdentificationCode>BE</cbc:IdentificationCode></cac:Country>
           </cac:PostalAddress>
           <cac:PartyTaxScheme>
-            <cbc:CompanyID>BE0899623035</cbc:CompanyID>
+            <cbc:CompanyID>BE0475123420</cbc:CompanyID>
             <cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme>
           </cac:PartyTaxScheme>
           <cac:PartyLegalEntity>
             <cbc:RegistrationName>Dummy Customer BV</cbc:RegistrationName>
-            <cbc:CompanyID>BE0899623035</cbc:CompanyID>
+            <cbc:CompanyID>BE0475123420</cbc:CompanyID>
           </cac:PartyLegalEntity>
         </cac:Party>
       </cac:AccountingCustomerParty>
