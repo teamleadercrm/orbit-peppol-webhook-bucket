@@ -7,7 +7,7 @@
         <TypeVersion>2.1</TypeVersion>
         <InstanceIdentifier>c1a2b3c4-d5e6-4f70-8a9b-0c1d2e3f4a5b</InstanceIdentifier>
         <Type>Invoice</Type>
-        <CreationDateAndTime>2026-07-14T09:00:00</CreationDateAndTime>
+        <CreationDateAndTime>2026-07-15T09:00:00</CreationDateAndTime>
       </DocumentIdentification>
     </StandardBusinessDocumentHeader>
     <Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2"
@@ -15,14 +15,14 @@
              xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">
       <cbc:CustomizationID>urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:selfbilling:3.0</cbc:CustomizationID>
       <cbc:ProfileID>urn:fdc:peppol.eu:2017:poacc:selfbilling:01:1.0</cbc:ProfileID>
-      <cbc:ID>SB-INV-2026-0001</cbc:ID>
-      <cbc:IssueDate>2026-07-14</cbc:IssueDate>
-      <cbc:DueDate>2026-08-13</cbc:DueDate>
+      <cbc:ID>SB-INV-2026-0002</cbc:ID>
+      <cbc:IssueDate>2026-07-15</cbc:IssueDate>
+      <cbc:DueDate>2026-08-14</cbc:DueDate>
       <cbc:InvoiceTypeCode>380</cbc:InvoiceTypeCode>
       <cbc:DocumentCurrencyCode>EUR</cbc:DocumentCurrencyCode>
       <cbc:BuyerReference>SELFBILL-REF-0001</cbc:BuyerReference>
       <cac:OrderReference>
-        <cbc:ID>PO-2026-0042</cbc:ID>
+        <cbc:ID>PO-2026-0043</cbc:ID>
       </cac:OrderReference>
       <cac:AccountingSupplierParty>
         <cac:Party>
