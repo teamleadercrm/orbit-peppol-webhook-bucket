@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    TD 71507 - review issue 1: an incoming purchase from an UNKNOWN supplier on an account with option SPSC
+    ("Skip PEPPOL supplier creation"). The supplier is not created; its data lands raw in PURCHASES.SUPPLIER_JSON.
+    Purchase line names are stripped by the PR, the supplier name/address in SUPPLIER_JSON are not.
+
+    Before sending:
+      - enable option SPSC on the target account
+      - make sure no client has VATCODE BE0999715070 (otherwise the supplier is found and SUPPLIER_JSON stays empty)
+      - the receiver lookup uses the webhook body (peppol_html_inject.http), not this file
+-->
+<sh:StandardBusinessDocument
+        xmlns:sh="http://www.unece.org/cefact/namespaces/StandardBusinessDocumentHeader">
+    <sh:StandardBusinessDocumentHeader>
+        <sh:HeaderVersion>1.0</sh:HeaderVersion>
+        <sh:Sender>
+            <sh:Identifier Authority="iso6523-actorid-upis">0208:0999715070</sh:Identifier>
+        </sh:Sender>
+        <sh:Receiver>
+            <sh:Identifier Authority="iso6523-actorid-upis">0208:0000000000</sh:Identifier>
+        </sh:Receiver>
+        <sh:DocumentIdentification>
+            <sh:Standard>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2</sh:Standard>
+            <sh:TypeVersion>2.1</sh:TypeVersion>
+            <sh:InstanceIdentifier>71507000-0000-4000-8000-000000000001</sh:InstanceIdentifier>
+            <sh:Type>Invoice</sh:Type>
+            <sh:CreationDateAndTime>2026-10-23T09:00:00.000Z</sh:CreationDateAndTime>
+        </sh:DocumentIdentification>
+        <sh:BusinessScope>
+            <sh:Scope>
+                <sh:Type>DOCUMENTID</sh:Type>
+                <sh:InstanceIdentifier>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0::2.1</sh:InstanceIdentifier>
+                <sh:Identifier>busdox-docid-qns</sh:Identifier>
+            </sh:Scope>
+            <sh:Scope>
+                <sh:Type>PROCESSID</sh:Type>
+                <sh:InstanceIdentifier>urn:fdc:peppol.eu:2017:poacc:billing:01:1.0</sh:InstanceIdentifier>
+                <sh:Identifier>cenbii-procid-ubl</sh:Identifier>
+            </sh:Scope>
+            <sh:Scope>
+                <sh:Type>COUNTRY_C1</sh:Type>
+                <sh:InstanceIdentifier>BE</sh:InstanceIdentifier>
+            </sh:Scope>
+        </sh:BusinessScope>
+    </sh:StandardBusinessDocumentHeader>
+    <Invoice xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+             xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+             xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2">
+        <cbc:CustomizationID>urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0</cbc:CustomizationID>
+        <cbc:ProfileID>urn:fdc:peppol.eu:2017:poacc:billing:01:1.0</cbc:ProfileID>
+        <cbc:ID>TD71507-SPSC-001</cbc:ID>
+        <cbc:IssueDate>2026-10-23</cbc:IssueDate>
+        <cbc:DueDate>2026-11-22</cbc:DueDate>
+        <cbc:InvoiceTypeCode>380</cbc:InvoiceTypeCode>
+        <cbc:DocumentCurrencyCode>EUR</cbc:DocumentCurrencyCode>
+        <cbc:BuyerReference>TD71507</cbc:BuyerReference>
+        <cac:AccountingSupplierParty>
+            <cac:Party>
+                <cbc:EndpointID schemeID="0208">0999715070</cbc:EndpointID>
+                <cac:PartyName>
+                    <!-- arrives as "<<html>>Acme <b>Supplies</b>" -->
+                    <cbc:Name>&lt;&lt;html&gt;&gt;Acme &lt;b&gt;Supplies&lt;/b&gt;</cbc:Name>
+                </cac:PartyName>
+                <cac:PostalAddress>
+                    <cbc:StreetName>&lt;i&gt;Kerkstraat&lt;/i&gt;</cbc:StreetName>
+                    <cbc:AdditionalStreetName>&lt;span&gt;12&lt;/span&gt;</cbc:AdditionalStreetName>
+                    <cbc:CityName>&lt;p&gt;Gent&lt;/p&gt;</cbc:CityName>
+                    <cbc:PostalZone>9000</cbc:PostalZone>
+                    <cac:Country>
+                        <cbc:IdentificationCode>BE</cbc:IdentificationCode>
+                    </cac:Country>
+                </cac:PostalAddress>
+                <cac:PartyTaxScheme>
+                    <cbc:CompanyID>BE0999715070</cbc:CompanyID>
+                    <cac:TaxScheme>
+                        <cbc:ID>VAT</cbc:ID>
+                    </cac:TaxScheme>
+                </cac:PartyTaxScheme>
+                <cac:PartyLegalEntity>
+                    <cbc:RegistrationName>&lt;&lt;html&gt;&gt;Acme Supplies BV</cbc:RegistrationName>
+                    <cbc:CompanyID>0999715070</cbc:CompanyID>
+                </cac:PartyLegalEntity>
+                <cac:Contact>
+                    <cbc:Telephone>+32 9 000 00 00</cbc:Telephone>
+                    <cbc:ElectronicMail>invoices@acme.invalid</cbc:ElectronicMail>
+                </cac:Contact>
+            </cac:Party>
+        </cac:AccountingSupplierParty>
+        <cac:AccountingCustomerParty>
+            <cac:Party>
+                <cbc:EndpointID schemeID="0208">0000000000</cbc:EndpointID>
+                <cac:PartyName>
+                    <cbc:Name>Receiver (not used for lookup)</cbc:Name>
+                </cac:PartyName>
+                <cac:PostalAddress>
+                    <cac:Country>
+                        <cbc:IdentificationCode>BE</cbc:IdentificationCode>
+                    </cac:Country>
+                </cac:PostalAddress>
+                <cac:PartyLegalEntity>
+                    <cbc:RegistrationName>Receiver</cbc:RegistrationName>
+                </cac:PartyLegalEntity>
+            </cac:Party>
+        </cac:AccountingCustomerParty>
+        <cac:PaymentMeans>
+            <cbc:PaymentMeansCode>30</cbc:PaymentMeansCode>
+            <cbc:PaymentID>+++715/0700/00101+++</cbc:PaymentID>
+            <cac:PayeeFinancialAccount>
+                <cbc:ID>BE68539007547034</cbc:ID>
+            </cac:PayeeFinancialAccount>
+        </cac:PaymentMeans>
+        <cac:TaxTotal>
+            <cbc:TaxAmount currencyID="EUR">42.00</cbc:TaxAmount>
+            <cac:TaxSubtotal>
+                <cbc:TaxableAmount currencyID="EUR">200.00</cbc:TaxableAmount>
+                <cbc:TaxAmount currencyID="EUR">42.00</cbc:TaxAmount>
+                <cac:TaxCategory>
+                    <cbc:ID>S</cbc:ID>
+                    <cbc:Percent>21.00</cbc:Percent>
+                    <cac:TaxScheme>
+                        <cbc:ID>VAT</cbc:ID>
+                    </cac:TaxScheme>
+                </cac:TaxCategory>
+            </cac:TaxSubtotal>
+        </cac:TaxTotal>
+        <cac:LegalMonetaryTotal>
+            <cbc:LineExtensionAmount currencyID="EUR">200.00</cbc:LineExtensionAmount>
+            <cbc:TaxExclusiveAmount currencyID="EUR">200.00</cbc:TaxExclusiveAmount>
+            <cbc:TaxInclusiveAmount currencyID="EUR">242.00</cbc:TaxInclusiveAmount>
+            <cbc:PayableAmount currencyID="EUR">242.00</cbc:PayableAmount>
+        </cac:LegalMonetaryTotal>
+        <cac:InvoiceLine>
+            <cbc:ID>1</cbc:ID>
+            <cbc:InvoicedQuantity unitCode="C62">1.00</cbc:InvoicedQuantity>
+            <cbc:LineExtensionAmount currencyID="EUR">200.00</cbc:LineExtensionAmount>
+            <cac:Item>
+                <!-- control: the PR strips this one, expect "Kabels Cat6" on the purchase line -->
+                <cbc:Name>&lt;&lt;html&gt;&gt;Kabels &lt;b&gt;Cat6&lt;/b&gt;</cbc:Name>
+                <cac:ClassifiedTaxCategory>
+                    <cbc:ID>S</cbc:ID>
+                    <cbc:Percent>21.00</cbc:Percent>
+                    <cac:TaxScheme>
+                        <cbc:ID>VAT</cbc:ID>
+                    </cac:TaxScheme>
+                </cac:ClassifiedTaxCategory>
+            </cac:Item>
+            <cac:Price>
+                <cbc:PriceAmount currencyID="EUR">200.00</cbc:PriceAmount>
+            </cac:Price>
+        </cac:InvoiceLine>
+    </Invoice>
+</sh:StandardBusinessDocument>
