@@ -15,7 +15,7 @@
     <sh:StandardBusinessDocumentHeader>
         <sh:HeaderVersion>1.0</sh:HeaderVersion>
         <sh:Sender>
-            <sh:Identifier Authority="iso6523-actorid-upis">0208:0999715071</sh:Identifier>
+            <sh:Identifier Authority="iso6523-actorid-upis">0208:0999715070</sh:Identifier>
         </sh:Sender>
         <sh:Receiver>
             <sh:Identifier Authority="iso6523-actorid-upis">0208:0000000000</sh:Identifier>
@@ -73,7 +73,7 @@
         </cac:AccountingSupplierParty>
         <cac:AccountingCustomerParty>
             <cac:Party>
-                <cbc:EndpointID schemeID="0208">0999715071</cbc:EndpointID>
+                <cbc:EndpointID schemeID="0208">0999715070</cbc:EndpointID>
                 <cac:PartyName>
                     <cbc:Name>Existing self-billing customer</cbc:Name>
                 </cac:PartyName>
@@ -84,7 +84,7 @@
                 </cac:PostalAddress>
                 <cac:PartyTaxScheme>
                     <!-- REPLACE: VATCODE of an existing client entity -->
-                    <cbc:CompanyID>BE0999715071</cbc:CompanyID>
+                    <cbc:CompanyID>BE0999715070</cbc:CompanyID>
                     <cac:TaxScheme>
                         <cbc:ID>VAT</cbc:ID>
                     </cac:TaxScheme>
@@ -92,7 +92,7 @@
                 <cac:PartyLegalEntity>
                     <cbc:RegistrationName>Existing self-billing customer</cbc:RegistrationName>
                     <!-- REPLACE: same VAT code -->
-                    <cbc:CompanyID>BE0999715071</cbc:CompanyID>
+                    <cbc:CompanyID>BE0999715070</cbc:CompanyID>
                 </cac:PartyLegalEntity>
             </cac:Party>
         </cac:AccountingCustomerParty>
