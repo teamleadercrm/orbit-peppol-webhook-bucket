@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    TD 71507 - review issue 2: an incoming SELF-BILLING invoice. Our customer issues the invoice on our behalf;
+    IncomingSelfBillingDocumentHandler turns every InvoiceLine into a sales invoice line with Item.Name /
+    Item.Description copied as-is (no StripHtmlTags).
+
+    Before sending:
+      - AccountingSupplierParty = us (the receiving legal entity); not used for lookup, only cosmetic
+      - AccountingCustomerParty/PartyTaxScheme/CompanyID MUST equal the VATCODE of an existing client ENTITY
+        under the receiving legal entity (self-billing never creates a customer).
+        Replace BE0999715071 below (2x) with that VAT code.
+-->
+<sh:StandardBusinessDocument
+        xmlns:sh="http://www.unece.org/cefact/namespaces/StandardBusinessDocumentHeader">
+    <sh:StandardBusinessDocumentHeader>
+        <sh:HeaderVersion>1.0</sh:HeaderVersion>
+        <sh:Sender>
+            <sh:Identifier Authority="iso6523-actorid-upis">0208:0999715071</sh:Identifier>
+        </sh:Sender>
+        <sh:Receiver>
+            <sh:Identifier Authority="iso6523-actorid-upis">0208:0000000000</sh:Identifier>
+        </sh:Receiver>
+        <sh:DocumentIdentification>
+            <sh:Standard>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2</sh:Standard>
+            <sh:TypeVersion>2.1</sh:TypeVersion>
+            <sh:InstanceIdentifier>71507000-0000-4000-8000-000000000002</sh:InstanceIdentifier>
+            <sh:Type>Invoice</sh:Type>
+            <sh:CreationDateAndTime>2026-10-23T09:00:00.000Z</sh:CreationDateAndTime>
+        </sh:DocumentIdentification>
+        <sh:BusinessScope>
+            <sh:Scope>
+                <sh:Type>DOCUMENTID</sh:Type>
+                <sh:InstanceIdentifier>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:selfbilling:3.0::2.1</sh:InstanceIdentifier>
+                <sh:Identifier>busdox-docid-qns</sh:Identifier>
+            </sh:Scope>
+            <sh:Scope>
+                <sh:Type>PROCESSID</sh:Type>
+                <sh:InstanceIdentifier>urn:fdc:peppol.eu:2017:poacc:selfbilling:01:1.0</sh:InstanceIdentifier>
+                <sh:Identifier>cenbii-procid-ubl</sh:Identifier>
+            </sh:Scope>
+            <sh:Scope>
+                <sh:Type>COUNTRY_C1</sh:Type>
+                <sh:InstanceIdentifier>BE</sh:InstanceIdentifier>
+            </sh:Scope>
+        </sh:BusinessScope>
+    </sh:StandardBusinessDocumentHeader>
+    <Invoice xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+             xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+             xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2">
+        <cbc:CustomizationID>urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:selfbilling:3.0</cbc:CustomizationID>
+        <cbc:ProfileID>urn:fdc:peppol.eu:2017:poacc:selfbilling:01:1.0</cbc:ProfileID>
+        <cbc:ID>TD71507-SB-001</cbc:ID>
+        <cbc:IssueDate>2026-10-23</cbc:IssueDate>
+        <cbc:DueDate>2026-11-22</cbc:DueDate>
+        <cbc:InvoiceTypeCode>389</cbc:InvoiceTypeCode>
+        <cbc:DocumentCurrencyCode>EUR</cbc:DocumentCurrencyCode>
+        <cbc:BuyerReference>TD71507</cbc:BuyerReference>
+        <cac:AccountingSupplierParty>
+            <cac:Party>
+                <cbc:EndpointID schemeID="0208">0000000000</cbc:EndpointID>
+                <cac:PartyName>
+                    <cbc:Name>Receiving legal entity (us)</cbc:Name>
+                </cac:PartyName>
+                <cac:PostalAddress>
+                    <cac:Country>
+                        <cbc:IdentificationCode>BE</cbc:IdentificationCode>
+                    </cac:Country>
+                </cac:PostalAddress>
+                <cac:PartyLegalEntity>
+                    <cbc:RegistrationName>Receiving legal entity (us)</cbc:RegistrationName>
+                </cac:PartyLegalEntity>
+            </cac:Party>
+        </cac:AccountingSupplierParty>
+        <cac:AccountingCustomerParty>
+            <cac:Party>
+                <cbc:EndpointID schemeID="0208">0999715071</cbc:EndpointID>
+                <cac:PartyName>
+                    <cbc:Name>Existing self-billing customer</cbc:Name>
+                </cac:PartyName>
+                <cac:PostalAddress>
+                    <cac:Country>
+                        <cbc:IdentificationCode>BE</cbc:IdentificationCode>
+                    </cac:Country>
+                </cac:PostalAddress>
+                <cac:PartyTaxScheme>
+                    <!-- REPLACE: VATCODE of an existing client entity -->
+                    <cbc:CompanyID>BE0999715071</cbc:CompanyID>
+                    <cac:TaxScheme>
+                        <cbc:ID>VAT</cbc:ID>
+                    </cac:TaxScheme>
+                </cac:PartyTaxScheme>
+                <cac:PartyLegalEntity>
+                    <cbc:RegistrationName>Existing self-billing customer</cbc:RegistrationName>
+                    <!-- REPLACE: same VAT code -->
+                    <cbc:CompanyID>BE0999715071</cbc:CompanyID>
+                </cac:PartyLegalEntity>
+            </cac:Party>
+        </cac:AccountingCustomerParty>
+        <cac:TaxTotal>
+            <cbc:TaxAmount currencyID="EUR">63.00</cbc:TaxAmount>
+            <cac:TaxSubtotal>
+                <cbc:TaxableAmount currencyID="EUR">300.00</cbc:TaxableAmount>
+                <cbc:TaxAmount currencyID="EUR">63.00</cbc:TaxAmount>
+                <cac:TaxCategory>
+                    <cbc:ID>S</cbc:ID>
+                    <cbc:Percent>21.00</cbc:Percent>
+                    <cac:TaxScheme>
+                        <cbc:ID>VAT</cbc:ID>
+                    </cac:TaxScheme>
+                </cac:TaxCategory>
+            </cac:TaxSubtotal>
+        </cac:TaxTotal>
+        <cac:LegalMonetaryTotal>
+            <cbc:LineExtensionAmount currencyID="EUR">300.00</cbc:LineExtensionAmount>
+            <cbc:TaxExclusiveAmount currencyID="EUR">300.00</cbc:TaxExclusiveAmount>
+            <cbc:TaxInclusiveAmount currencyID="EUR">363.00</cbc:TaxInclusiveAmount>
+            <cbc:PayableAmount currencyID="EUR">363.00</cbc:PayableAmount>
+        </cac:LegalMonetaryTotal>
+        <cac:InvoiceLine>
+            <cbc:ID>1</cbc:ID>
+            <cbc:InvoicedQuantity unitCode="C62">1.00</cbc:InvoicedQuantity>
+            <cbc:LineExtensionAmount currencyID="EUR">100.00</cbc:LineExtensionAmount>
+            <cac:Item>
+                <!-- the customer case: "<<html>>" in the name -->
+                <cbc:Description>Plain description, control line</cbc:Description>
+                <cbc:Name>&lt;&lt;html&gt;&gt;Consultancy oktober</cbc:Name>
+                <cac:ClassifiedTaxCategory>
+                    <cbc:ID>S</cbc:ID>
+                    <cbc:Percent>21.00</cbc:Percent>
+                    <cac:TaxScheme>
+                        <cbc:ID>VAT</cbc:ID>
+                    </cac:TaxScheme>
+                </cac:ClassifiedTaxCategory>
+            </cac:Item>
+            <cac:Price>
+                <cbc:PriceAmount currencyID="EUR">100.00</cbc:PriceAmount>
+            </cac:Price>
+        </cac:InvoiceLine>
+        <cac:InvoiceLine>
+            <cbc:ID>2</cbc:ID>
+            <cbc:InvoicedQuantity unitCode="C62">1.00</cbc:InvoicedQuantity>
+            <cbc:LineExtensionAmount currencyID="EUR">100.00</cbc:LineExtensionAmount>
+            <cac:Item>
+                <!-- markup that would render if a view prints the name unencoded -->
+                <cbc:Description>&lt;b&gt;bold description&lt;/b&gt; &amp;#39;quote&amp;#39;</cbc:Description>
+                <cbc:Name>&lt;b&gt;Licenties&lt;/b&gt; &lt;img src=x onerror=alert(71507)&gt;</cbc:Name>
+                <cac:ClassifiedTaxCategory>
+                    <cbc:ID>S</cbc:ID>
+                    <cbc:Percent>21.00</cbc:Percent>
+                    <cac:TaxScheme>
+                        <cbc:ID>VAT</cbc:ID>
+                    </cac:TaxScheme>
+                </cac:ClassifiedTaxCategory>
+            </cac:Item>
+            <cac:Price>
+                <cbc:PriceAmount currencyID="EUR">100.00</cbc:PriceAmount>
+            </cac:Price>
+        </cac:InvoiceLine>
+        <cac:InvoiceLine>
+            <cbc:ID>3</cbc:ID>
+            <cbc:InvoicedQuantity unitCode="C62">1.00</cbc:InvoicedQuantity>
+            <cbc:LineExtensionAmount currencyID="EUR">100.00</cbc:LineExtensionAmount>
+            <cac:Item>
+                <!-- control: plain text, must save fine -->
+                <cbc:Name>Frais d'envoi &amp; Co</cbc:Name>
+                <cac:ClassifiedTaxCategory>
+                    <cbc:ID>S</cbc:ID>
+                    <cbc:Percent>21.00</cbc:Percent>
+                    <cac:TaxScheme>
+                        <cbc:ID>VAT</cbc:ID>
+                    </cac:TaxScheme>
+                </cac:ClassifiedTaxCategory>
+            </cac:Item>
+            <cac:Price>
+                <cbc:PriceAmount currencyID="EUR">100.00</cbc:PriceAmount>
+            </cac:Price>
+        </cac:InvoiceLine>
+    </Invoice>
+</sh:StandardBusinessDocument>
