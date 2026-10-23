@@ -150,7 +150,7 @@
             <cbc:InvoicedQuantity unitCode="HUR">10</cbc:InvoicedQuantity>
             <cbc:LineExtensionAmount currencyID="EUR">850.00</cbc:LineExtensionAmount>
             <cac:Item>
-                <cbc:Name>&lt;&lt;html&gt;&gt;Design consultancy &lt;b&gt;October&lt;/b&gt; 2026 for Ae's studio <hint </cbc:Name>
+                <cbc:Name>&lt;&lt;html&gt;&gt;Design consultancy &lt;b&gt;October&lt;/b&gt; 2026 for Ae's studio &lt;hint </cbc:Name>
                 <cac:ClassifiedTaxCategory>
                     <cbc:ID>S</cbc:ID>
                     <cbc:Percent>21</cbc:Percent>
